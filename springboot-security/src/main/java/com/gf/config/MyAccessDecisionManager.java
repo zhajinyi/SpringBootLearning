@@ -16,6 +16,7 @@ import java.util.Iterator;
 
 /**
  * 决策器
+ * @author dhc
  */
 @Component
 public class MyAccessDecisionManager implements AccessDecisionManager {
@@ -30,16 +31,17 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
      * @param configAttributes configAttributes是本次访问需要的权限
      */
     @Override
-    public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
+    public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
+            throws AccessDeniedException, InsufficientAuthenticationException {
         if (null == configAttributes || 0 >= configAttributes.size()) {
             return;
         } else {
             String needRole;
-            for(Iterator<ConfigAttribute> iter = configAttributes.iterator(); iter.hasNext(); ) {
-                needRole = iter.next().getAttribute();
+            for(Iterator<ConfigAttribute> iterator = configAttributes.iterator(); iterator.hasNext(); ) {
+                needRole = iterator.next().getAttribute();
 
-                for(GrantedAuthority ga : authentication.getAuthorities()) {
-                    if(needRole.trim().equals(ga.getAuthority().trim())) {
+                for(GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+                    if(needRole.trim().equals(grantedAuthority.getAuthority().trim())) {
                         return;
                     }
                 }

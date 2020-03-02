@@ -9,6 +9,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,11 +18,14 @@ import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 
+/**
+ * @author dhc
+ */
 @Component
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
 
-    @Autowired
+    @Resource
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     @Autowired
@@ -37,7 +41,7 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
         invoke(fi);
     }
 
-    public void invoke(FilterInvocation fi) throws IOException, ServletException {
+    private void invoke(FilterInvocation fi) throws IOException, ServletException {
 
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {

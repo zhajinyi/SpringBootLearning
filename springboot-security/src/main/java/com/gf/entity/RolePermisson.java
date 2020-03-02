@@ -1,6 +1,9 @@
 package com.gf.entity;
 
 
+/**
+ * @author dhc
+ */
 public class RolePermisson {
 
     private String url;

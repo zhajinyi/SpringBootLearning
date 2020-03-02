@@ -6,6 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author dhc
+ */
 public class User implements UserDetails , Serializable {
 
     private Long id;

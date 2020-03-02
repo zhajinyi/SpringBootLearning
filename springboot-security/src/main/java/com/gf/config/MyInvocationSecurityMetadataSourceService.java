@@ -3,7 +3,6 @@ package com.gf.config;
 
 import com.gf.entity.RolePermisson;
 import com.gf.mapper.PermissionMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -11,17 +10,14 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class MyInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
-    @Autowired
+    @Resource
     private PermissionMapper permissionMapper;
 
     /**
@@ -37,8 +33,8 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         //object 中包含用户请求的request 信息
         HttpServletRequest request = ((FilterInvocation) o).getHttpRequest();
-        for (Iterator<String> it = map.keySet().iterator() ; it.hasNext();) {
-            String url = it.next();
+        for (Iterator<String> iterator = map.keySet().iterator() ; iterator.hasNext();) {
+            String url = iterator.next();
             if (new AntPathRequestMatcher( url ).matches( request )) {
                 return map.get( url );
             }
